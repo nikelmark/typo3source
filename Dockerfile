@@ -20,6 +20,12 @@ RUN set -x && \
     rm -fr /var/cache/* && \
     yum -y autoremove rh-php70-php-pgsql rh-php70-php-ldap postgresql postgresql-devel postgresql-libs autoconf automake glibc-devel glibc-headers libcom_err-devel libcurl-devel libstdc++-devel make openssl-devel pcre-devel gcc gcc-c++ gdb gdb-gdbserver git libgcrypt-devel libgpg-error-devel libxml2-devel libxslt-devel openssh openssh-clients sqlite-devel zlib-devel && \
     mkdir -p ${CONTENT_DIR} && \
+    cd ${CONTENT_DIR} && \
+    mkdir -p typo3temp && \
+    mkdir -p typo3conf && \
+    mkdir -pfileadmin && \
+    mkdir -p uploads && \
+    cd .. && \
     wget https://get.typo3.org/${TP3_VERS} && \
     tar -xf ${TP3_VERS} && \
     sed -i 's/LogFormat "%h /LogFormat "%{X-Forwarded-For}i /' /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf && \
