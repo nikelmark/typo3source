@@ -51,4 +51,4 @@ COPY containerfiles/ /
 
 RUN chmod +x /docker-entrypoint.sh
 
-CMD ["bash /docker-entrypoint.sh"]
+CMD ["/docker-entrypoint.sh"]
