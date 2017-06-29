@@ -51,4 +51,4 @@ USER 1001
 
 COPY containerfiles/ /
 
-CMD ["/docker-entrypoint.sh"]
+CMD ["bash /docker-entrypoint.sh"]
