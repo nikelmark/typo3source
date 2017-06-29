@@ -2,7 +2,6 @@ FROM registry.access.redhat.com/rhscl/php-70-rhel7
 # Edit Version - original: TP3_VERS=8.7.1
 # To be able to change the Image
 
-USER 0
 
 ENV CONTENT_DIR=/data/typo3/ \
     APACHE_APP_ROOT=/opt/app-root/src \
