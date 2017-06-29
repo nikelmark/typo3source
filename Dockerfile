@@ -34,7 +34,6 @@ RUN set -x && \
     sed -i 's/max_execution_time.*/max_execution_time = 240/' /etc/opt/rh/rh-php70/php.ini && \
     sed -i 's/;always_populate_raw_post_data.*/always_populate_raw_post_data = -1/' /etc/opt/rh/rh-php70/php.ini && \
     sed -i -f /opt/app-root/etc/httpdconf.sed /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf && \
-    sed -i '/php_value session.save_path/d' /opt/rh/httpd24/root/etc/httpd/conf.d/php70-php.conf && \
     head -n151 /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf | tail -n1 | grep "AllowOverride All" || exit && \
     echo "IncludeOptional /opt/app-root/etc/conf.d/*.conf" >> /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf && \
     echo '<?php phpinfo(); ' > /opt/app-root/src/pinf.php && \
