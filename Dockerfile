@@ -2,7 +2,7 @@ FROM registry.access.redhat.com/rhscl/php-70-rhel7
 # Edit Version - original: TP3_VERS=8.7.1
 # To be able to change the Image
 
-USER 0
+USER www-data
 
 ENV CONTENT_DIR=/var/www/html \
     APACHE_APP_ROOT=/opt/app-root/src \
@@ -30,7 +30,7 @@ RUN set -x && \
     ln -s typo3_src/typo3 && \
     ln -s typo3_src/_.htaccess .htaccess && \
     touch FIRST_INSTALL && \
-    chown -Rvf www-data . . && \
+    chown -Rvf www-data. . && \
     sed -i 's/LogFormat "%h /LogFormat "%{X-Forwarded-For}i /' /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf && \
     sed -i 's/;date.timezone.*/date.timezone = Europe\/Vienna/' /etc/opt/rh/rh-php70/php.ini && \
     sed -i 's/; max_input_vars.*/max_input_vars = 1500/' /etc/opt/rh/rh-php70/php.ini && \
