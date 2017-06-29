@@ -4,7 +4,7 @@ FROM registry.access.redhat.com/rhscl/php-70-rhel7
 
 USER 0
 
-ENV CONTENT_DIR=/data/typo3-content/ \
+ENV CONTENT_DIR=/data/typo3/ \
     APACHE_APP_ROOT=/opt/app-root/src \
     TP3_VERS=8.7.1 \ 
     TP3_FULL_FILE=typo3_src-\${TP3_VERS} \
