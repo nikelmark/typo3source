@@ -39,7 +39,7 @@ RUN set -x && \
     chmod -R a+rwx /tmp/sessions && \
     chmod -R ug+rwx /opt/app-root && \
     chmod -R a+rwx /etc/opt/rh/rh-php70 && \
-    chmod -R a+rwx /opt/rh/httpd24/root/var/run/httpd
+    chmod -R a+rwx /opt/rh/httpd24/root/var/run/httpd && \
     ln -s ${CONTENT_DIR}/$(basename $( echo ${TP3_FULL_FILE}|envsubst ) '') ${APACHE_APP_ROOT}/typo3_src && \
     cd ${APACHE_APP_ROOT} && \
     touch ${APACHE_APP_ROOT}/FIRST_INSTALL && \
