@@ -4,7 +4,7 @@ FROM registry.access.redhat.com/rhscl/php-70-rhel7
 
 USER 0
 
-ENV CONTENT_DIR=/data/typo3/ \
+ENV CONTENT_DIR=/var/www/html \
     APACHE_APP_ROOT=/opt/app-root/src \
     TP3_VERS=8.7.1 \ 
     TP3_FULL_FILE=typo3_src-\${TP3_VERS} \
@@ -27,12 +27,20 @@ RUN set -x && \
     sed -i 's/; max_input_vars.*/max_input_vars = 1500/' /etc/opt/rh/rh-php70/php.ini && \
     sed -i 's/max_execution_time.*/max_execution_time = 240/' /etc/opt/rh/rh-php70/php.ini && \
     sed -i 's/;always_populate_raw_post_data.*/always_populate_raw_post_data = -1/' /etc/opt/rh/rh-php70/php.ini && \
+    sed -i -f /opt/app-root/etc/httpdconf.sed /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf && \
+    sed -i '/php_value session.save_path/d' /opt/rh/httpd24/root/etc/httpd/conf.d/php70-php.conf && \
+    head -n151 /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf | tail -n1 | grep "AllowOverride All" || exit && \
+    echo "IncludeOptional /opt/app-root/etc/conf.d/*.conf" >> /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf && \
     echo '<?php phpinfo(); ' > /opt/app-root/src/pinf.php && \
     echo 'xdebug.max_nesting_level=400'>>  /etc/opt/rh/rh-php70/php.d/15-xdebug.ini && \
     chown -R 1001:0 ${CONTENT_DIR} ${APACHE_APP_ROOT} && \
     chmod 777 ${CONTENT_DIR} ${APACHE_APP_ROOT} && \
     chmod -R 777 ${CONTENT_DIR} /var/opt/rh/rh-php70/lib/php/session && \
     chown -R 1001:0 /opt/app-root /tmp/sessions && \
+    chmod -R a+rwx /tmp/sessions && \
+    chmod -R ug+rwx /opt/app-root && \
+    chmod -R a+rwx /opt/rh/php55/root/etc && \
+    chmod -R a+rwx /opt/rh/httpd24/root/var/run/httpd && \
     ln -s ${CONTENT_DIR}/$(basename $( echo ${TP3_FULL_FILE}|envsubst ) '') ${APACHE_APP_ROOT}/typo3_src && \
     cd ${APACHE_APP_ROOT} && \
     touch ${APACHE_APP_ROOT}/FIRST_INSTALL && \
@@ -43,11 +51,11 @@ RUN set -x && \
 
 EXPOSE 8080
 
-USER 1001
+
 
 COPY containerfiles/ /
 
-USER 0
+
 
 RUN chmod +x /docker-entrypoint.sh
 
