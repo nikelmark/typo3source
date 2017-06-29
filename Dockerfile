@@ -23,7 +23,7 @@ RUN set -x && \
     cd ${CONTENT_DIR} && \
     mkdir -p typo3temp && \
     mkdir -p typo3conf && \
-    mkdir -pfileadmin && \
+    mkdir -p fileadmin && \
     mkdir -p uploads && \
     cd .. && \
     wget https://get.typo3.org/${TP3_VERS} && \
