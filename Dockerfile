@@ -47,8 +47,8 @@ RUN set -x && \
 
 EXPOSE 8080
 
-USER 1001
-
 COPY containerfiles/ /
+
+RUN chmod +x /docker-entrypoint.sh
 
 CMD ["bash /docker-entrypoint.sh"]
