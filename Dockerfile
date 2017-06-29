@@ -21,13 +21,18 @@ RUN set -x && \
     yum -y autoremove rh-php70-php-pgsql rh-php70-php-ldap postgresql postgresql-devel postgresql-libs autoconf automake glibc-devel glibc-headers libcom_err-devel libcurl-devel libstdc++-devel make openssl-devel pcre-devel gcc gcc-c++ gdb gdb-gdbserver git libgcrypt-devel libgpg-error-devel libxml2-devel libxslt-devel openssh openssh-clients sqlite-devel zlib-devel && \
     mkdir -p ${CONTENT_DIR} && \
     cd ${CONTENT_DIR} && \
+    wget https://get.typo3.org/${TP3_VERS} && \
+    tar -xf ${TP3_VERS} && \
     mkdir -p typo3temp && \
     mkdir -p typo3conf && \
     mkdir -p fileadmin && \
     mkdir -p uploads && \
-    cd .. && \
-    wget https://get.typo3.org/${TP3_VERS} && \
-    tar -xf ${TP3_VERS} && \
+    ln -s typo3_src-* typo3_src && \
+    ln -s typo3_src/index.php && \
+    ln -s typo3_src/typo3 && \
+    ln -s typo3_src/_.htaccess .htaccess && \
+    touch FIRST_INSTALL && \
+    chown -Rvf www-data. && \
     sed -i 's/LogFormat "%h /LogFormat "%{X-Forwarded-For}i /' /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf && \
     sed -i 's/;date.timezone.*/date.timezone = Europe\/Vienna/' /etc/opt/rh/rh-php70/php.ini && \
     sed -i 's/; max_input_vars.*/max_input_vars = 1500/' /etc/opt/rh/rh-php70/php.ini && \
@@ -57,13 +62,9 @@ EXPOSE 8080
 
 
 
-COPY containerfiles/ /
+
 
 VOLUME /var/www/html/fileadmin
 VOLUME /var/www/html/typo3conf
 VOLUME /var/www/html/typo3temp
 VOLUME /var/www/html/uploads
-
-RUN chmod +x /docker-entrypoint.sh
-
-CMD ["/docker-entrypoint.sh"]
