@@ -44,7 +44,7 @@ RUN set -x && \
     chown -R 1001:0 /opt/app-root /tmp/sessions && \
     chmod -R a+rwx /tmp/sessions && \
     chmod -R ug+rwx /opt/app-root && \
-    chmod -R a+rwx /opt/rh/php55/root/etc && \
+    chmod -R a+rwx /opt/rh/php70/root/etc && \
     chmod -R a+rwx /opt/rh/httpd24/root/var/run/httpd && \
     ln -s ${CONTENT_DIR}/$(basename $( echo ${TP3_FULL_FILE}|envsubst ) '') ${APACHE_APP_ROOT}/typo3_src && \
     cd ${APACHE_APP_ROOT} && \
