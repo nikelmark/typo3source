@@ -35,7 +35,7 @@ if [ ! -d /data/typo3_src-${TYPO3_VERSION} ]; then
   cp -avx /tmp/typo3_src-${TYPO3_VERSION} /data/
 fi
 
-cat /data/typo3_src-7.6.5/_.htaccess > ${MY_TP3_ROOT}/.htaccess
+cat /data/typo3_src-8.7.1/_.htaccess > ${MY_TP3_ROOT}/.htaccess
 
 env
 
