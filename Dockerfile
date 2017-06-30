@@ -44,7 +44,7 @@ RUN set -x && \
     chmod -R 777 ${CONTENT_DIR} /var/opt/rh/rh-php70/lib/php/session && \
     ln -s ${CONTENT_DIR}/$(basename $( echo ${TP3_FULL_FILE}|envsubst ) '') ${APACHE_APP_ROOT}/typo3_src && \
     cd ${APACHE_APP_ROOT} && \
-    head -n151 /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf | tail -n1 | grep "Require all granted" || exit && \
+    head -n151 /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf | tail -n1 | grep "AllowOverride All" || exit && \
     echo "IncludeOptional /opt/app-root/etc/conf.d/*.conf" >> /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf && \
     chown -Rvf 1001:0 /opt/app-root /tmp/sessions && \
     chmod -Rvf a+rwx /tmp/sessions && \
