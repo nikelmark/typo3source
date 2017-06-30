@@ -2,7 +2,7 @@ FROM registry.access.redhat.com/rhscl/php-70-rhel7
 # Edit Version - original: TP3_VERS=8.7.1
 # To be able to change the Image
 
-USER root
+USER 0
 
 ENV CONTENT_DIR=/var/www/html \
     APACHE_APP_ROOT=/opt/app-root/src \
@@ -41,7 +41,8 @@ RUN set -x && \
     echo 'xdebug.max_nesting_level=400'>>  /etc/opt/rh/rh-php70/php.d/15-xdebug.ini && \
     chown -R 1001:0 ${CONTENT_DIR} ${APACHE_APP_ROOT} && \
     chmod 777 ${CONTENT_DIR} ${APACHE_APP_ROOT} && \
-    chcon -R -t httpd_sys_content_t ${CONTENT_DIR} && \
+    chcon -R -t httpd_sys_content_t mkdir -p /var/www/html/typo3temp && \
+    chcon -R -t httpd_sys_content_t mkdir -p /var/www/html/typo3temp && \
     chmod -R 777 ${CONTENT_DIR} /var/opt/rh/rh-php70/lib/php/session && \
     ln -s ${CONTENT_DIR}/$(basename $( echo ${TP3_FULL_FILE}|envsubst ) '') ${APACHE_APP_ROOT}/typo3_src && \
     cd ${APACHE_APP_ROOT} && \
