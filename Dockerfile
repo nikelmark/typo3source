@@ -49,6 +49,9 @@ RUN set -x && \
     chmod -R ug+rwx /opt/app-root && \
     chmod -R a+rwx /etc/opt/rh/rh-php70 && \
     chmod -R a+rwx /opt/rh/httpd24/root/var/run/httpd && \
+    ln -s ${CONTENT_DIR}/$(basename $( echo ${TP3_FULL_FILE}|envsubst ) '') ${APACHE_APP_ROOT}/typo3_src && \
+    touch ${APACHE_APP_ROOT}/FIRST_INSTALL && \
+    chmod -R ug+rwx ${APACHE_APP_ROOT}/FIRST_INSTALL && \
     ln -s typo3_src/typo3 typo3 && \
     ln -s typo3_src/index.php index.php
     
