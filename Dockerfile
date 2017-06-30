@@ -39,7 +39,7 @@ RUN set -x && \
     sed -i 's/;always_populate_raw_post_data.*/always_populate_raw_post_data = -1/' /etc/opt/rh/rh-php70/php.ini && \
     echo '<?php phpinfo(); ' > /opt/app-root/src/pinf.php && \
     echo 'xdebug.max_nesting_level=400'>>  /etc/opt/rh/rh-php70/php.d/15-xdebug.ini && \
-    chown -R 1001:0 ${CONTENT_DIR} ${APACHE_APP_ROOT} && \
+    #chown -R 1001:0 ${CONTENT_DIR} ${APACHE_APP_ROOT} && \
     chmod 777 ${CONTENT_DIR} ${APACHE_APP_ROOT} && \
     chcon -R -t httpd_sys_content_t /var/www/html/typo3temp && \
     chcon -R -t httpd_sys_content_t /var/www/html/typo3conf && \
