@@ -69,6 +69,10 @@ VOLUME /var/www/html/uploads
 
 COPY containerfiles/ /
 
+USER 0
+
 RUN chmod +x /docker-entrypoint.sh
+
+USER 1001
 
 CMD ["/docker-entrypoint.sh"]
