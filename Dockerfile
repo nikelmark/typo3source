@@ -41,8 +41,6 @@ RUN set -x && \
     echo 'xdebug.max_nesting_level=400'>>  /etc/opt/rh/rh-php70/php.d/15-xdebug.ini && \
     chown -R 1001:0 ${CONTENT_DIR} ${APACHE_APP_ROOT} && \
     chmod 777 ${CONTENT_DIR} ${APACHE_APP_ROOT} && \
-    chcon -R -t httpd_sys_content_t /var/www/html/typo3temp && \
-    chcon -R -t httpd_sys_content_t /var/www/html/typo3conf && \
     chmod -R 777 ${CONTENT_DIR} /var/opt/rh/rh-php70/lib/php/session && \
     ln -s ${CONTENT_DIR}/$(basename $( echo ${TP3_FULL_FILE}|envsubst ) '') ${APACHE_APP_ROOT}/typo3_src && \
     cd ${APACHE_APP_ROOT} && \
@@ -54,7 +52,6 @@ RUN set -x && \
     chmod -Rvf a+rwx /etc/opt/rh/rh-php70 && \
     chmod -Rvf a+rwx /opt/rh/httpd24/root/var/run/httpd && \
     ln -s ${CONTENT_DIR}/$(basename $( echo ${TP3_FULL_FILE}|envsubst ) '') ${APACHE_APP_ROOT}/typo3_src && \
-    chcon -R -t httpd_sys_content_t ${APACHE_APP_ROOT} && \
     cd ${APACHE_APP_ROOT} && \
     touch ${APACHE_APP_ROOT}/FIRST_INSTALL && \
     chmod -Rvf ug+rwx ${APACHE_APP_ROOT}/FIRST_INSTALL && \
