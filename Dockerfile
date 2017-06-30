@@ -46,19 +46,18 @@ RUN set -x && \
     cd ${APACHE_APP_ROOT} && \
     head -n151 /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf | tail -n1 | grep "AllowOverride All" || exit && \
     echo "IncludeOptional /opt/app-root/etc/conf.d/*.conf" >> /opt/rh/httpd24/root/etc/httpd/conf/httpd.conf && \
-    chown -Rvf 1001:0 /opt/app-root /tmp/sessions && \
-    chmod -Rvf a+rwx /tmp/sessions && \
-    chmod -Rvf ug+rwx /opt/app-root && \
-    chmod -Rvf a+rwx /etc/opt/rh/rh-php70 && \
-    chmod -Rvf a+rwx /opt/rh/httpd24/root/var/run/httpd && \
+    chown -R 1001:0 /opt/app-root /tmp/sessions && \
+    chmod -R a+rwx /tmp/sessions && \
+    chmod -R ug+rwx /opt/app-root && \
+    chmod -R a+rwx /etc/opt/rh/rh-php70 && \
+    chmod -R a+rwx /opt/rh/httpd24/root/var/run/httpd && \
     ln -s ${CONTENT_DIR}/$(basename $( echo ${TP3_FULL_FILE}|envsubst ) '') ${APACHE_APP_ROOT}/typo3_src && \
     cd ${APACHE_APP_ROOT} && \
     touch ${APACHE_APP_ROOT}/FIRST_INSTALL && \
-    chmod -Rvf ug+rwx ${APACHE_APP_ROOT}/FIRST_INSTALL && \
+    chmod -R ug+rwx ${APACHE_APP_ROOT}/FIRST_INSTALL && \
     ln -s typo3_src/typo3 typo3 && \
     ln -s typo3_src/index.php index.php
     
-USER 1001
 
 EXPOSE 8080
 
@@ -69,10 +68,6 @@ VOLUME /var/www/html/uploads
 
 COPY containerfiles/ /
 
-USER 0
-
 RUN chmod +x /docker-entrypoint.sh
-
-USER 1001
 
 CMD ["/docker-entrypoint.sh"]
