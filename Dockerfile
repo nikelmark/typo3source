@@ -37,6 +37,7 @@ RUN set -x && \
     sed -i 's/; max_input_vars.*/max_input_vars = 1500/' /etc/opt/rh/rh-php70/php.ini && \
     sed -i 's/max_execution_time.*/max_execution_time = 240/' /etc/opt/rh/rh-php70/php.ini && \
     sed -i 's/;always_populate_raw_post_data.*/always_populate_raw_post_data = -1/' /etc/opt/rh/rh-php70/php.ini && \
+    echo "max_input_vars = 10000;" >> /etc/opt/rh/rh-php70/php.ini && \
     echo '<?php phpinfo(); ' > /opt/app-root/src/pinf.php && \
     echo 'xdebug.max_nesting_level=400'>>  /etc/opt/rh/rh-php70/php.d/15-xdebug.ini && \
     chmod -R 777 ${CONTENT_DIR} /var/opt/rh/rh-php70/lib/php/session && \
